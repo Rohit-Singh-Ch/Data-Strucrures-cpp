@@ -10,34 +10,21 @@ int helper_minCostPath(int **input, int m, int n, int si, int sj) {
         // Reached (m-1, n-1)
         return input[m-1][n-1];
     }
+  
+	// If si or sj is outOfBound then return with INT_MAX 
+	if(si >= m || sj >= n) {
+		return INT_MAX;
+	} 
     
-    // Initialization
-    int res1 = INT_MAX;
-    int res2 = INT_MAX;
-    int res3 = INT_MAX;
-    int res  = INT_MAX;
-    // recursive call
+	// recursive calls
     // Directions (i+1, j), (i, j+1) and (i+1, j+1).
-    // Direacion1 - (i+1, j))
-    if(si+1 < m) { 
-        res1 = helper_minCostPath(input, m, n, si+1, sj);
-    }
     
-    // Direacion2 - (i, j+1))
-    if(sj+1 < n) { // Check for valid limits
-        res2 = helper_minCostPath(input, m, n, si, sj+1);
-    }
+	int res1 = helper_minCostPath(input, m, n, si+1, sj);
+    int res2 = helper_minCostPath(input, m, n, si, sj+1);
+    int res3 = helper_minCostPath(input, m, n, si+1, sj+1);
     
-    // Direacion3 - (i+1, j+1)
-    if(si+1 < m && sj+1 < n) {
-        res3 = helper_minCostPath(input, m, n, si+1, sj+1);
-    }
-    
-    // Find minimum cost
-    res = min(res1, min(res2, res3));
-    
-    // Add value of current cell to answer and return
-    return input[si][sj] + res;
+    // Find minimum cost, add value of current cell to min result and return
+    return min(res1, min(res2, res3)) + input[si][sj];
 }
 
 int minCostPath(int **input, int m, int n) {
