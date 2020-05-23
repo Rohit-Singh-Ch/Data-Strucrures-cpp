@@ -3,6 +3,7 @@
 #include <climits>
 using namespace std;
 
+/*
 // Method1 - Recursive solution , Complexity exponential approx. O(n3)
 int helper_minCostPath(int **input, int m, int n, int si, int sj) {
     // Base case
@@ -33,7 +34,7 @@ int minCostPath(int **input, int m, int n) {
     // Start from (0, 0)
     return helper_minCostPath(input, m, n, 0, 0);
 }
-
+*/
 // Method2 - Memoization solution , Complexity exponential approx. O(n)
 int helper_minCostPath_Mem(int **input, int m, int n, int si, int sj, int **output) {
     // Base case
@@ -56,9 +57,9 @@ int helper_minCostPath_Mem(int **input, int m, int n, int si, int sj, int **outp
 	// recursive calls
     // Directions (i+1, j), (i, j+1) and (i+1, j+1).
 
-    int res1 = helper_minCostPath(input, m, n, si+1, sj);
-    int res2 = helper_minCostPath(input, m, n, si, sj+1);
-    int res3 = helper_minCostPath(input, m, n, si+1, sj+1);
+    int res1 = helper_minCostPath_Mem(input, m, n, si+1, sj, output);
+    int res2 = helper_minCostPath_Mem(input, m, n, si, sj+1, output);
+    int res3 = helper_minCostPath_Mem(input, m, n, si+1, sj+1, output);
 
     // Find minimum cost, add value of current cell to min result and return
 	// Save answer for future use
